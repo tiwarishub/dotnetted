@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "9q87FXQDEeMlFFLs+/6oMq572z/vtG3Yb4q7ZRxKQBmMZbhvbIJZSt0JVusHS5gyp5Lr0yL9y5e3jekh9JNokg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nikavima\\Desktop\\dotnetted\\sampleclasslibproject\\sampleclasslibproject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nikavima\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\nikavima\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
