@@ -20,3 +20,13 @@
 /sampleworkerproject/bin
 /sampleworkerproject/obj
 /samplewebproject/.config/dotnet-tools.json
+/sampleconsoleproject/obj
+/sampleconsoleproject/bin
+/samplereactproject/bin
+/samplereactproject/obj
+/samplereactproject/ClientApp/node_modules
+/samplereactproject/ClientApp/build
+/samplereactreduxproject/bin
+/samplereactreduxproject/obj
+/samplereactreduxproject/ClientApp/node_modules
+/samplereactreduxproject/ClientApp/build
