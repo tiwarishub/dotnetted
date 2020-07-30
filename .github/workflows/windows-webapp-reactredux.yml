@@ -1,4 +1,4 @@
-name: Deploy sample .net core webapp to Azure - linux
+name: Deploy sample .net core webapp to Azure - windows
 
 on:
   push:
@@ -7,10 +7,10 @@ on:
     branches: [ master ]
 
 env:
-  AZURE_WEBAPP_PACKAGE_PATH: ./samplereactproject/publish
-  AZURE_WEBAPP_NAME: leenucksreeeeactwidoutreeeedux
+  AZURE_WEBAPP_PACKAGE_PATH: ./samplereactreduxproject/publish
+  AZURE_WEBAPP_NAME: reeeeeactwidreeeeducks
   NETCORE_VERSION: 3.1.301
-  PROJECT_TO_BE_DEPLOYED: ./samplereactproject/samplereactproject.csproj
+  PROJECT_TO_BE_DEPLOYED: ./samplereactreduxproject/samplereactreduxproject.csproj
 
 jobs:
   build:
