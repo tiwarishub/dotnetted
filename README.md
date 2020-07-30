@@ -5,6 +5,11 @@ To deploy these to azure (web apps for now), <code>deployer.bat</code>  is added
 
 ## How to deploy to your existing azure web app?
 
+### Pre-requisites
+- Local machine must be a windows machine (windows 10),
+- .NET Core SDK (LTS 3.1) must be installed on the machine,
+- Node.js must be installed on the machine
+
 ### Setting deployer.bat for your scenario
 Open the <code>deployer.bat</code> in an editor of your choice, set the values of following variables as per your requirement -</br>
 - If you want to conncet to Az using SPN,
