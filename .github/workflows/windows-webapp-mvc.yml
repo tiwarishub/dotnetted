@@ -24,11 +24,11 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore {{ env.PROJECT_TO_BE_DEPLOYED }}
+      run: dotnet restore ${{ env.PROJECT_TO_BE_DEPLOYED }}
     - name: Build
-      run: dotnet build {{ env.PROJECT_TO_BE_DEPLOYED }} --configuration Release --no-restore
+      run: dotnet build ${{ env.PROJECT_TO_BE_DEPLOYED }} --configuration Release --no-restore
     - name: Publish artifact
-      run: dotnet publish {{ env.PROJECT_TO_BE_DEPLOYED }} --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      run: dotnet publish ${{ env.PROJECT_TO_BE_DEPLOYED }} --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: Login to Azure
       uses: azure/login@v1
       with:
