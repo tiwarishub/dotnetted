@@ -1,0 +1,22 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/sampleclasslibproject/bin
+/sampleclasslibproject/obj
+/sampledotnetcorerazorproject/bin
+/sampledotnetcorerazorproject/obj
+*.zip
+/samplemvcproject/bin
+/samplemvcproject/obj
+/samplewebapiproject/bin
+/samplewebapiproject/obj
+/samplewebappproject/bin
+/samplewebappproject/obj
+/samplewebproject/.vs/samplewebproject
+/samplewebproject/bin
+/samplewebproject/obj
+/sampleworkerproject/bin
+/sampleworkerproject/obj
+/samplewebproject/.config/dotnet-tools.json
