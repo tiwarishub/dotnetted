@@ -1,0 +1,43 @@
+name: Deploy sample .net core webapp to Azure - linux
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: ./samplereactproject/publish
+  AZURE_WEBAPP_NAME: leenucksweebaap
+  NETCORE_VERSION: 3.1.301
+  PROJECT_TO_BE_DEPLOYED: ./samplereactproject/samplereactproject.csproj
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore ${{ env.PROJECT_TO_BE_DEPLOYED }}
+    - name: Build
+      run: dotnet build ${{ env.PROJECT_TO_BE_DEPLOYED }} --configuration Release --no-restore
+    - name: Publish artifact
+      run: dotnet publish ${{ env.PROJECT_TO_BE_DEPLOYED }} --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_GITHUB_SECRET }}
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - name: logout
+      run: |
+        az logout
