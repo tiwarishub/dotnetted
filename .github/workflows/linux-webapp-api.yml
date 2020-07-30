@@ -1,4 +1,4 @@
-name: Deploy sample .net core webapp to Azure - windows
+name: Deploy sample .net core webapp to Azure - leenucksaypieye
 
 on:
   push:
