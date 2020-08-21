@@ -1,0 +1,39 @@
+on:
+  push:
+    branches:
+    - master
+name: Build and deploy .NET Core app to Linux WebApp
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    
+    - name: Install dependencies
+      run: dotnet restore samplereactproject
+    
+    - name: Build
+      run: dotnet build samplereactproject --configuration Release --no-restore
+    
+    - name: Publish artifact
+      run: dotnet publish samplereactproject --configuration Release --no-build --output samplereactproject/publish
+    
+    - uses: azure/appservice-settings@v1
+      with:
+        app-name: nooooooooolinux
+        general-settings-json: '{"linuxFxVersion": "DOTNETCORE|3.1"}' #'General configuration settings as Key Value pairs'
+    
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: nooooooooolinux
+        package: samplereactproject/publish
+        publish-profile: ${{ secrets.AZURE_CREDENTIALS_GITHUB_SECRET }}
