@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+    - master
+name: Build and deploy .NET Core app to Windows WebApp
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Install dependencies
+      run: dotnet restore samplemvcproject
+    
+    - name: Build
+      run: dotnet build samplemvcproject --configuration Release --no-restore
+    
+    - name: Publish artifact
+      run: dotnet publish samplemvcproject --configuration Release --no-build --output samplemvcproject/publish
+    
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: noooooooo
+        package: samplemvcproject/publish
+        publish-profile: ${{ secrets.AZURE_CREDENTIALS_GITHUB_SECRET }}
