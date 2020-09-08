@@ -40,6 +40,7 @@ jobs:
       with:
         app-name: iamnotandneverwasawebapp
         package: samplereactreduxproject/publish
+        startup-command: dotnet run
 
     - name: logout
       run: |
