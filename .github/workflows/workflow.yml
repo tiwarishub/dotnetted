@@ -32,13 +32,13 @@ jobs:
     
     - uses: azure/appservice-settings@v1
       with:
-        app-name: iamnotandneverwasawebapp
+        app-name: imnotbatman
         general-settings-json: '{"linuxFxVersion": "DOTNETCORE|3.1"}' #'General configuration settings as Key Value pairs'
     
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v1
       with:
-        app-name: iamnotandneverwasawebapp
+        app-name: imnotbatman
         package: samplewebappproject/publish
         startup-command: dotnet run
 
