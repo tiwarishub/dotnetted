@@ -22,13 +22,13 @@ jobs:
         dotnet-version: 3.1.x
     
     - name: Install dependencies
-      run: dotnet restore samplereactreduxproject
+      run: dotnet restore samplewebappproject
     
     - name: Build
-      run: dotnet build samplereactreduxproject --configuration Release --no-restore
+      run: dotnet build samplewebappproject --configuration Release --no-restore
     
     - name: Publish artifact
-      run: dotnet publish samplereactreduxproject --configuration Release --no-build --output samplereactreduxproject/publish
+      run: dotnet publish samplewebappproject --configuration Release --no-build --output samplewebappproject/publish
     
     - uses: azure/appservice-settings@v1
       with:
@@ -39,8 +39,7 @@ jobs:
       uses: azure/webapps-deploy@v1
       with:
         app-name: imnotbatman
-        package: samplereactreduxproject/publish
-        startup-command: dotnet run
+        package: samplewebappproject/publish
 
     - name: logout
       run: |
