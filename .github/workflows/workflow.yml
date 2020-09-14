@@ -2,45 +2,33 @@ on:
   push:
     branches:
     - master
-name: Build and deploy, .NET Core app to Linux WebApp
+name: Build and deploy .NET Core app to Windows WebApp
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@master
     
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS_GITHUB_SECRET }}
-
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    
+
     - name: Install dependencies
-      run: dotnet restore samplemvcproject
+      run: dotnet restore samplewebappproject
     
     - name: Build
-      run: dotnet build samplemvcproject --configuration Release --no-restore
+      run: dotnet build samplewebappproject --configuration Release --no-restore
     
     - name: Publish artifact
-      run: dotnet publish samplemvcproject --configuration Release --no-build --output samplemvcproject/publish
-    
-    - uses: azure/appservice-settings@v1
-      with:
-        app-name: imnotbatman
-        general-settings-json: '{"linuxFxVersion": "DOTNETCORE|3.1"}' #'General configuration settings as Key Value pairs'
+      run: dotnet publish samplewebappproject --configuration Release --no-build --output samplewebappproject/publish
     
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v1
       with:
-        app-name: imnotbatman
-        package: samplemvcproject/publish
-
-    - name: logout
-      run: |
-        az logout
+        app-name: bg-win-webapp
+        package: samplewebappproject/publish
+        publish-profile: ${{ secrets.AZURE_CREDENTIALS_GITHUB_SECRET }}
