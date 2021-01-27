@@ -1,0 +1,64 @@
+name: Build and deploy .NET Core app to Linux WebApp aatiwarishub-webapp-linux
+on:
+  push:
+    branches:
+    - master
+
+env:
+  AZURE_WEBAPP_NAME: aatiwarishub-webapp-linux
+  AZURE_WEBAPP_PACKAGE_PATH: sampleconsoleproject/publish
+  AZURE_WEBAPP_PUBLISH_PROFILE: ${{secrets.aatiwarishubwebapplinux_0416}}
+  CONFIGURATION: Release
+  DOTNET_CORE_VERSION: 3.1.x
+  WORKING_DIRECTORY: sampleconsoleproject
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    
+    - name: Install dependencies
+      run: dotnet restore ${{ env.WORKING_DIRECTORY }}
+    
+    - name: Build
+      run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
+
+    - name: Test
+      run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
+    
+    - name: Publish artifact
+      run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+    - uses: azure/appservice-settings@v1
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        general-settings-json: '{"linuxFxVersion": "DOTNETCORE|3.1"}' #'General configuration settings as Key Value pairs'
+
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        
+
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: webapp
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+    - name: logout
+      run: |
+        az logout
